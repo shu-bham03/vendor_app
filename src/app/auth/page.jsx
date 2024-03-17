@@ -20,7 +20,6 @@ const validatePassword = (_, value) => {
 const LoginScreen = () => {
   const router = useRouter();
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
     router.push("/dashboard");
   };
 
