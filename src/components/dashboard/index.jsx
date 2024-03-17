@@ -111,19 +111,27 @@ const DashboardPage = () => {
       dataIndex: "username",
       key: "username",
     },
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+    },
 
     {
       title: "Action",
       fixed: "right",
       key: "action",
-      width: 40,
+      width: "10%",
       render: (subVendor) => (
         <Flex gap={24}>
           <EditFilled
             onClick={() => router.push(`/add-edit/${subVendor?.vendorId}`)}
           />
-          <span className="bg-red p-2">
-            <DeleteFilled onClick={() => deleteConfirm(subVendor)} />
+          <span className=" p-2">
+            <DeleteFilled
+              style={{ color: "red" }}
+              onClick={() => deleteConfirm(subVendor)}
+            />
           </span>
         </Flex>
       ),
@@ -142,7 +150,8 @@ const DashboardPage = () => {
         </Button>
       </span>
       <Table
-        dataSource={appState}
+        // dataSource={appState.reverse()}
+        dataSource={[...appState].reverse()}
         scroll={{ x: !screens.xl || screens.xxl }}
         columns={columns}
         rowKey={(record, index) => index}

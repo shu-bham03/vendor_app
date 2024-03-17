@@ -74,7 +74,7 @@ const LoginScreen = () => {
         </Form.Item>
         <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox className="text-white">Remember me</Checkbox>
+            <Checkbox className="text-white ">Remember me</Checkbox>
           </Form.Item>
 
           <a className="text-white text-sm" href="">

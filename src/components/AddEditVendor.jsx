@@ -69,15 +69,15 @@ const AddEditVendor = () => {
           </Col>
           <Col xs={24} md={12}>
             <Form.Item
-              name="textArea"
+              name="description"
               rules={[
                 {
                   required: true,
-                  message: "Please enter text!",
+                  message: "Please enter description!",
                 },
               ]}
             >
-              <Input.TextArea rows={1} placeholder="textArea" />
+              <Input.TextArea rows={1} placeholder="description..." />
             </Form.Item>
           </Col>
           <Col span={24}>
