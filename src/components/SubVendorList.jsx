@@ -1,9 +1,10 @@
-import { CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import {
   Button,
   Card,
   Checkbox,
   Col,
+  Divider,
   Form,
   Input,
   InputNumber,
@@ -33,7 +34,22 @@ const validateNumber = (rule, value, callback) => {
 const SubVendorList = ({ form }) => {
   //   const [form] = Form.useForm();
   return (
-    <Form.List name="subvendor">
+    <Form.List
+      name="subvendor"
+      rules={[
+        {
+          validator: (_, value) => {
+            if (value.length < 1) {
+              return Promise.reject(
+                new Error("At least one vendor is required")
+              );
+            } else {
+              return Promise.resolve();
+            }
+          },
+        },
+      ]}
+    >
       {(fields, { add, remove }) => (
         <div
           style={{
@@ -49,14 +65,16 @@ const SubVendorList = ({ form }) => {
               title={`Vendor ${field.name + 1}`}
               key={field.key}
               extra={
-                <CloseOutlined
-                  onClick={() => {
-                    remove(field.name);
-                  }}
-                />
+                fields.length > 1 && (
+                  <CloseOutlined
+                    onClick={() => {
+                      remove(field.name);
+                    }}
+                  />
+                )
               }
             >
-              <Row gutter={[24, 24]}>
+              <Row gutter={[24, 16]}>
                 <Col md={12}>
                   <Form.Item
                     label="Vendor Name"
@@ -95,9 +113,27 @@ const SubVendorList = ({ form }) => {
                     </Checkbox>
                   </Form.Item>
                 </Col>
-                <Col md={12}>
+                <Divider className="m-0" />
+                <Col xl={12}>
                   <Form.Item>
-                    <Form.List name={[field.name, "verients"]}>
+                    <Form.List
+                      initialValue={[{}]}
+                      name={[field.name, "verients"]}
+                      rules={[
+                        {
+                          validator: (_, value) => {
+                            console.log("first", value.length);
+                            if (value.length < 1) {
+                              return Promise.reject(
+                                new Error("At least one verient is required")
+                              );
+                            } else {
+                              return Promise.resolve();
+                            }
+                          },
+                        },
+                      ]}
+                    >
                       {(subFields, subOpt) => (
                         <div
                           style={{
@@ -107,8 +143,8 @@ const SubVendorList = ({ form }) => {
                           }}
                         >
                           {subFields.map((subField) => (
-                            <Row gutter={[24, 24]} key={subField.key}>
-                              <Col md={11}>
+                            <Row gutter={[24, 0]} key={subField.key}>
+                              <Col md={11} xl={12}>
                                 <Form.Item
                                   label="Varient"
                                   name={[subField.name, "verient"]}
@@ -129,13 +165,16 @@ const SubVendorList = ({ form }) => {
                                   />
                                 </Form.Item>
                               </Col>
-                              <Col md={2}>
-                                <CloseOutlined
-                                  onClick={() => {
-                                    subOpt.remove(subField.name);
-                                  }}
-                                />
+                              <Col md={2} xl={1}>
+                                {subFields.length > 1 && (
+                                  <MinusCircleOutlined
+                                    onClick={() => {
+                                      subOpt.remove(subField.name);
+                                    }}
+                                  />
+                                )}
                               </Col>
+                              <Col xs={16} md={8}></Col>
                             </Row>
                           ))}
                           <Button

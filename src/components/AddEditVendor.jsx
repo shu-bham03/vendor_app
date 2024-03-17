@@ -48,7 +48,7 @@ const AddEditVendor = () => {
     form.setFieldsValue(filterData[0]);
   }, [id]);
   return (
-    <Layout className="">
+    <Layout className=" p-10 xs:p-2">
       <Form
         size="large"
         name="normal_login"
@@ -56,10 +56,9 @@ const AddEditVendor = () => {
         form={form}
         onFinish={onFinish}
       >
-        <Row gutter={[24, 24]}>
-          <Col md={12}>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} md={12}>
             <Form.Item
-              labelCol={{ md: { span: 12 } }}
               name="username"
               rules={[
                 {
@@ -71,14 +70,13 @@ const AddEditVendor = () => {
               <Input placeholder="Username" />
             </Form.Item>
           </Col>
-          <Col md={12}>
+          <Col xs={24} md={12}>
             <Form.Item
-              labelCol={{ md: { span: 12 } }}
               name="textArea"
               rules={[
                 {
                   required: true,
-                  message: "Please enter Username!",
+                  message: "Please enter text!",
                 },
               ]}
             >

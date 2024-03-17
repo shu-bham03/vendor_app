@@ -1,24 +1,47 @@
 "use client";
 
 import {
+  ForwardFilled,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Button, theme, Image, Flex, notification } from "antd";
+import {
+  Layout,
+  Menu,
+  Button,
+  theme,
+  Image,
+  Flex,
+  notification,
+  Grid,
+} from "antd";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const { Header, Sider, Content } = Layout;
 
+const { useBreakpoint } = Grid;
+
 export default function UserLayout({ children }) {
+  const screens = useBreakpoint();
+
   const [collapsed, setCollapsed] = useState(false);
   const router = useRouter();
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  useEffect(() => {
+    if (
+      (screens.xs || screens.sm || screens.md) &&
+      (!screens.lg || !screens.xl)
+    ) {
+      setCollapsed(true);
+    }
+  }, [screens]);
 
   const logoutClick = () => {
     notification.success({
@@ -27,6 +50,7 @@ export default function UserLayout({ children }) {
     });
     router.push("/auth");
   };
+
   return (
     <Layout className="min-h-[100vh] ">
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -90,9 +114,10 @@ export default function UserLayout({ children }) {
           />
           <Button
             onClick={logoutClick}
+            className="text-[1.3rem] me-10 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-md py-0  px-4 hover:from-pink-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
             size="large"
-            className="me-6"
-            type="default"
+            icon={<ForwardFilled />}
+            type="primary"
           >
             Log Out
           </Button>

@@ -3,11 +3,13 @@ import {
   Col,
   Flex,
   Form,
+  Grid,
   Input,
   Modal,
   Row,
   Table,
   Typography,
+  notification,
 } from "antd";
 import {
   DeleteFilled,
@@ -21,13 +23,20 @@ import Layout from "antd/es/layout/layout";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 const { Text } = Typography;
+const { useBreakpoint } = Grid;
+
 const DashboardPage = () => {
+  const screens = useBreakpoint();
   const { appState, setAppState } = useContext(AppContext);
   const router = useRouter();
 
   const deleteVendor = (id) => {
     const filterData = appState.filter((ft) => +id !== +ft.vendorId);
     setAppState(filterData);
+    notification.success({
+      message: "Success",
+      description: "Vendor Deleted Successfully",
+    });
   };
 
   const deleteConfirm = (subVendor) => {
@@ -45,7 +54,6 @@ const DashboardPage = () => {
   };
 
   const expandedRowRender2 = (data) => {
-    console.log("first", data);
     const columns = [
       {
         title: "Verient",
@@ -61,6 +69,7 @@ const DashboardPage = () => {
 
     return (
       <Table
+        scroll={{ x: !screens.xl || screens.xxl }}
         rowKey={(record, index) => index}
         columns={columns}
         dataSource={data}
@@ -70,7 +79,6 @@ const DashboardPage = () => {
   };
 
   const expandedRowRender = (data) => {
-    console.log("first", data);
     const columns = [
       {
         title: "Name",
@@ -88,6 +96,7 @@ const DashboardPage = () => {
     return (
       <Table
         columns={columns}
+        scroll={{ x: !screens.xl || screens.xxl }}
         dataSource={data}
         pagination={false}
         rowKey={(record, index) => index}
@@ -126,8 +135,9 @@ const DashboardPage = () => {
     <>
       <span className="flex mb-4 border-separate justify-end">
         <Button
+          className=" text-[1.3rem] bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-md py-0  px-4 hover:from-pink-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
           size="large"
-          type="default"
+          type="primary"
           onClick={() => router.push("/add-edit/0")}
         >
           + Add Vendor
@@ -135,6 +145,7 @@ const DashboardPage = () => {
       </span>
       <Table
         dataSource={appState}
+        scroll={{ x: !screens.xl || screens.xxl }}
         columns={columns}
         rowKey={(record, index) => index}
         expandable={{

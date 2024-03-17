@@ -25,7 +25,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <div className="bg-black h-screen flex justify-center items-center">
+    <div className="bg-black h-screen flex justify-center items-center sm:p-2">
       <Form
         size="large"
         style={{ width: "30rem" }}
