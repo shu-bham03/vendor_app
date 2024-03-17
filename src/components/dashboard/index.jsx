@@ -15,14 +15,12 @@ import {
   DeleteFilled,
   EditFilled,
   ExclamationCircleOutlined,
-  UserOutlined,
 } from "@ant-design/icons";
 import React, { useContext, useEffect } from "react";
-import Context, { AppContext } from "../../../context";
-import Layout from "antd/es/layout/layout";
-import Link from "next/link";
+import { AppContext } from "../../../context";
+
 import { useRouter } from "next/navigation";
-const { Text } = Typography;
+
 const { useBreakpoint } = Grid;
 
 const DashboardPage = () => {

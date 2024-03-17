@@ -122,7 +122,6 @@ const SubVendorList = ({ form }) => {
                       rules={[
                         {
                           validator: (_, value) => {
-                            console.log("first", value.length);
                             if (value.length < 1) {
                               return Promise.reject(
                                 new Error("At least one verient is required")

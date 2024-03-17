@@ -22,8 +22,6 @@ const AddEditVendor = () => {
   const router = useRouter();
 
   const onFinish = (values) => {
-    console.log("values", values);
-
     if (+id > 0) {
       const filterData = appState.filter((dt) => +id !== dt.vendorId);
       setAppState([...filterData, { ...values, vendorId: +id }]);
@@ -42,7 +40,6 @@ const AddEditVendor = () => {
     router.push("/dashboard");
   };
   useEffect(() => {
-    console.log(id);
     if (+id === 0) return;
     const filterData = appState.filter((dt) => +id === dt.vendorId);
     form.setFieldsValue(filterData[0]);
